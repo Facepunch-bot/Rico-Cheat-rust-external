@@ -70,24 +70,7 @@ int main ( )
 	mist::wep = std::make_unique < CSharedMemComms > ( _ ( "Global\\15646577877" ), true );
 
 	logging::print ( TYPE_DEBUG, "Synchronizing with loader.." );
-	auto hEvent = OpenEventA ( EVENT_ALL_ACCESS, FALSE, ( "Global\\184474" ) );
-	if ( !hEvent || hEvent == INVALID_HANDLE_VALUE )
-	{
-		char szDst[256] { };
-		sprintf_s ( szDst, "CRASH %d\n", GetLastError ( ) );
-		MessageBoxA ( 0, szDst, 0, 0 );
-		return 0;
-	}
 
-	if ( !SetEvent ( hEvent ) )
-	{
-		char szDst[256] { };
-		sprintf_s ( szDst, "CRASH (1) %d\n", GetLastError ( ) );
-		MessageBoxA ( 0, szDst, 0, 0 );
-		return 0;
-	}
-
-	CloseHandle ( hEvent );
 	logging::print ( TYPE_DEBUG, "Initializing communications.." );
 	mist::other->Initialize ( );
 	mist::aim->Initialize ( );
